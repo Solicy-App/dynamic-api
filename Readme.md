@@ -9,3 +9,4 @@ More about Schema [here](https://pypi.org/project/schema/).
 - A module must have a process function, which receives the database object and the request arguments object.
 - The module should return an 'api_response.Response' object, which will be serialized and returned to the end user.
 - `404.html` template is rendered in case of `404 Not Found` errors.
+- Run with `python -m flask run`
