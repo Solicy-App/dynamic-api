@@ -10,3 +10,10 @@ More about Schema [here](https://pypi.org/project/schema/).
 - The module should return an 'api_response.Response' object, which will be serialized and returned to the end user.
 - `404.html` template is rendered in case of `404 Not Found` errors.
 - Run with `python -m flask run`
+
+
+
+## How to use?
+
+if you need to create table in db, just thing you will need run migrations
+1. flask db init

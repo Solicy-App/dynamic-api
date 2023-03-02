@@ -31,6 +31,7 @@ def direct_api(database):
         except ValidationError as error:
             return jsonify({'success': False, 'message': f"Validation Error: {error.message}"}), 400
         except Exception as e:
+            print(e)
             return jsonify({'success': False, 'message': 'Unable to process submitted data.'}), 500
 
     return __do_post
