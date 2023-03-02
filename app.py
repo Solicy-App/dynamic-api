@@ -6,8 +6,9 @@ from os import path as ospath
 from flask import Flask, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
+from modules.database.models import db
 from director import direct_api
+from flask_migrate import Migrate
 
 # Failsafe to ensure local imports always work
 script_directory = ospath.join(ospath.dirname(ospath.realpath(__file__)))
@@ -22,15 +23,21 @@ app = Flask(__name__.split('.')[0])
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-    username='root',
+    username='user',
     password='root',
     hostname='localhost',
-    databasename='db',
+    databasename='dynamic-db',
 )
+
+
+db.init_app(app)
+Migrate(app, db)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Connect to database.
-database = SQLAlchemy(app)
+# database = SQLAlchemy(app)
 
 # Variable Initialization
 processor = {}
@@ -48,5 +55,5 @@ def page_not_found(e):
 
 # Default Server Functionality
 app.add_url_rule('/', view_func=index)
-app.add_url_rule("/", view_func=direct_api(database), methods=['POST'])
+app.add_url_rule("/", view_func=direct_api(db), methods=['POST'])
 app.register_error_handler(404, page_not_found)
