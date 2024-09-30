@@ -10,3 +10,6 @@ More about Schema [here](https://pypi.org/project/schema/).
 - The module should return an 'api_response.Response' object, which will be serialized and returned to the end user.
 - `404.html` template is rendered in case of `404 Not Found` errors.
 - Run with `python -m flask run`
+
+## About
+This project is maintained by [Solicy Software and Blockchain Company](https://solicy.net/?utm_source=github&utm_medium=social)
